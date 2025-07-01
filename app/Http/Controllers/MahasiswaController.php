@@ -76,7 +76,6 @@ class MahasiswaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // dd($request->nim);
         $request->validate([
             'nim' => 'required|string|max:20|unique:mahasiswas,nim,' . $id,
             'nama' => 'required|string|max:255',
@@ -110,10 +109,6 @@ class MahasiswaController extends Controller
     public function destroy(string $id)
     {
         $mahasiswa = Mahasiswa::findOrFail($id);
-        // Delete photo if exists
-        if ($mahasiswa->foto) {
-            Storage::disk('public')->delete($mahasiswa->foto);
-        }
         $mahasiswa->delete();
         return redirect()->back()->with('success', 'Post deleted successfully!');
     }
